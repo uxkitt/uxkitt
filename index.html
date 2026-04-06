@@ -4,208 +4,191 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kitt Tucker | Systems-Driven Design. Human-Centered Results.</title>
-<meta name="description" content="15 years in UX & Product Design. Mobile, enterprise, TV, and AI-native process. Based in Denver, CO.">
+<meta name="description" content="15 years in UX and Product Design. Mobile, enterprise, TV, and AI-native process. Based in Denver, CO.">
 <link rel="stylesheet" href="style.css">
 <style>
+
+/* HERO */
 .hero {
-  min-height: calc(100svh - 60px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px);
+  padding: clamp(40px, 5vw, 64px) 0;
+  border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 65% 15%, rgba(100,70,200,0.2) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 35% at 25% 65%, rgba(30,140,170,0.13) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 45% at 85% 80%, rgba(212,151,59,0.09) 0%, transparent 50%),
+    radial-gradient(ellipse 65% 55% at 60% 20%, rgba(90,60,190,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 35% at 20% 70%, rgba(25,120,155,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 88% 75%, rgba(212,151,59,0.1) 0%, transparent 50%),
     var(--bg);
-  animation: heroShift 20s ease-in-out infinite alternate;
+  animation: heroShift 18s ease-in-out infinite alternate;
 }
 @keyframes heroShift {
   0%   { filter: hue-rotate(0deg) brightness(1); }
-  50%  { filter: hue-rotate(12deg) brightness(1.04); }
-  100% { filter: hue-rotate(-8deg) brightness(0.97); }
+  50%  { filter: hue-rotate(10deg) brightness(1.03); }
+  100% { filter: hue-rotate(-7deg) brightness(0.98); }
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
 }
 .hero-meta {
-  position: relative; z-index: 1;
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.14em; color: var(--text-3); text-transform: uppercase;
-  margin-bottom: clamp(16px, 2vw, 22px);
-  opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.5s forwards;
+  margin-bottom: clamp(14px, 1.8vw, 20px);
+  opacity: 0; animation: fadeUp 0.7s var(--ease-out) 0.4s forwards;
 }
 .hero-headline {
-  position: relative; z-index: 1;
-  font-family: var(--font-display); font-size: clamp(36px, 6.5vw, 80px);
-  font-weight: 700; letter-spacing: -0.03em; line-height: 1.0;
-  color: var(--text-1); max-width: 860px;
-  margin-bottom: clamp(16px, 2vw, 24px);
-  opacity: 0; animation: fadeUp 0.9s var(--ease-out) 0.65s forwards;
+  font-family: var(--font-sans); font-size: clamp(32px, 5.5vw, 64px);
+  font-weight: 700; letter-spacing: -0.01em; line-height: 1.05;
+  color: var(--text-1); max-width: 820px;
+  margin-bottom: clamp(14px, 1.8vw, 20px);
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.55s forwards;
 }
 .hero-sub {
-  position: relative; z-index: 1;
-  font-size: clamp(14px, 1.5vw, 17px); color: var(--text-2);
+  font-size: clamp(14px, 1.4vw, 16px); color: var(--text-2);
   line-height: 1.7; max-width: 560px; font-weight: 300;
-  opacity: 0; animation: fadeUp 0.9s var(--ease-out) 0.8s forwards;
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.7s forwards;
 }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* CLIENTS */
-.clients {
-  padding: clamp(36px, 4.5vw, 56px) clamp(24px, 5vw, 64px);
-  border-top: 1px solid var(--border);
-}
-.clients-grid {
-  display: flex; flex-wrap: wrap;
-  gap: clamp(10px, 1.5vw, 16px) clamp(18px, 3vw, 36px);
-  align-items: center;
-}
-.client-name {
-  font-family: var(--font-display);
-  font-size: clamp(10px, 1.1vw, 12px);
-  letter-spacing: 0.08em; color: var(--text-4);
-  font-weight: 600; text-transform: uppercase;
-  transition: color 0.3s; white-space: nowrap;
-}
-.client-name:hover { color: var(--text-2); }
+@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
 
 /* PROJECTS */
-.projects {
-  padding: clamp(36px, 4.5vw, 56px) clamp(24px, 5vw, 64px);
-  border-top: 1px solid var(--border);
-}
+.projects { padding: clamp(36px, 4.5vw, 56px) 0; }
 .projects-header {
-  display: flex; align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: clamp(24px, 3vw, 40px);
-  flex-wrap: wrap; gap: 12px;
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: clamp(22px, 2.8vw, 36px); flex-wrap: wrap; gap: 10px;
 }
 .projects-title {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 2.8vw, 32px);
-  font-weight: 700; color: var(--text-1); letter-spacing: -0.02em;
+  font-size: clamp(18px, 2.2vw, 24px); font-weight: 600;
+  color: var(--text-1); letter-spacing: 0.01em;
 }
-.projects-count {
-  font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-3); letter-spacing: 0.08em;
-}
+.projects-count { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); letter-spacing: 0.08em; }
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
-  gap: clamp(12px, 1.5vw, 16px);
+  gap: clamp(12px, 1.4vw, 16px);
 }
 
-/* PROJECT CARD */
+/* CARD */
 .project-card {
-  display: block; background: var(--surface);
-  border: 1px solid var(--border); border-radius: var(--radius-lg);
-  overflow: hidden; cursor: pointer; position: relative;
-  transition: border-color 0.3s, box-shadow 0.35s, transform 0.35s var(--ease-out);
-}
-.project-card::after {
-  content: ''; position: absolute;
-  bottom: 0; left: 0; right: 0; height: 2px;
-  background: var(--gold);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.35s var(--ease-out);
+  display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden; cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease-out);
 }
 .project-card:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
-  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  transform: translateY(-4px);
 }
-.project-card:hover::after { transform: scaleX(1); }
 .project-card.featured { grid-column: 1 / -1; }
 
 .card-visual {
   aspect-ratio: 16/9; overflow: hidden;
-  position: relative; background: var(--surface-2);
+  position: relative; background: var(--surface-2); flex-shrink: 0;
 }
 .project-card.featured .card-visual { aspect-ratio: 21/9; }
 .card-visual img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s var(--ease-out);
+  transition: transform 0.55s var(--ease-out);
 }
-.project-card:hover .card-visual img { transform: scale(1.04); }
+.project-card:hover .card-visual img { transform: scale(1.03); }
 .card-gradient { position: absolute; inset: 0; pointer-events: none; }
 
-/* Gradients */
-.grad-ai        { background: linear-gradient(135deg, #0D0A1A 0%, #1A0D2E 30%, #2D1B5E 60%, #1A2A4A 100%); }
-.grad-proservice{ background: linear-gradient(135deg, #0A1220 0%, #0D1E35 40%, #1A3550 70%, #102030 100%); }
-.grad-compass   { background: linear-gradient(135deg, #0D1520 0%, #101C2E 40%, #0A2240 70%, #08182E 100%); }
-.grad-attguide  { background: linear-gradient(135deg, #150D0A 0%, #2A1510 40%, #3D2010 70%, #201208 100%); }
-.grad-directv   { background: linear-gradient(135deg, #0A0D15 0%, #0D1225 40%, #101A35 70%, #080D20 100%); }
-.grad-uverse    { background: linear-gradient(135deg, #0D1515 0%, #0F2020 40%, #122828 70%, #0A1818 100%); }
-.grad-atthome   { background: linear-gradient(135deg, #150D0A 0%, #251510 40%, #351C10 70%, #1A0D08 100%); }
-.grad-life      { background: linear-gradient(135deg, #0A150D 0%, #0D2015 40%, #102815 70%, #081508 100%); }
-.grad-one       { background: linear-gradient(135deg, #150A15 0%, #200D20 40%, #2E1030 70%, #180A18 100%); }
-.grad-landlab   { background: linear-gradient(135deg, #0A1208 0%, #0F1E0D 40%, #141F0A 70%, #0A1508 100%); }
-.grad-eng       { background: linear-gradient(135deg, #151210 0%, #201E14 40%, #282210 70%, #181408 100%); }
+.grad-ai        { background: linear-gradient(135deg, #0D0A1A, #1A0D2E 35%, #2A1858 65%, #1A2848); }
+.grad-proservice{ background: linear-gradient(135deg, #0A1220, #0D1E35 40%, #183050, #102030); }
+.grad-compass   { background: linear-gradient(135deg, #0C1318, #101C2C 40%, #0A2038, #081728); }
+.grad-attguide  { background: linear-gradient(135deg, #140C08, #281408 40%, #381C0A, #1E1006); }
+.grad-directv   { background: linear-gradient(135deg, #090C14, #0C1122 40%, #0F1832, #07091E); }
+.grad-uverse    { background: linear-gradient(135deg, #0B1414, #0E1E1E 40%, #112626, #091616); }
+.grad-atthome   { background: linear-gradient(135deg, #140C08, #231408 40%, #321A0A, #180C06); }
+.grad-life      { background: linear-gradient(135deg, #091208, #0C1E10 40%, #0E2612, #071006); }
+.grad-one       { background: linear-gradient(135deg, #130913, #1E0C1E 40%, #2C0E2C, #160916); }
+.grad-landlab   { background: linear-gradient(135deg, #091008, #0D1C0B 40%, #121D08, #091308); }
+.grad-eng       { background: linear-gradient(135deg, #13100E, #1E1C12 40%, #262010, #161208); }
 
-/* AI CARD */
-.ai-card-visual {
+/* ── AI CARD VISUAL: 14 → 6 ── */
+.ai-card-inner {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  padding: clamp(20px, 3vw, 36px); overflow: hidden;
-}
-.ai-process-diagram {
-  width: 100%; max-width: 640px;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.ai-process-row {
-  opacity: 0;
-  animation: zoneSlideIn 0.5s var(--ease-out) forwards;
-}
-.ai-process-row:nth-child(1) { animation-delay: 0.05s; }
-.ai-process-row:nth-child(2) { animation-delay: 0.15s; }
-.ai-process-row:nth-child(3) { animation-delay: 0.25s; }
-.ai-process-row:nth-child(4) { animation-delay: 0.35s; }
-.ai-process-row:nth-child(5) { animation-delay: 0.45s; }
-.ai-process-row:nth-child(6) { animation-delay: 0.55s; }
-
-@keyframes zoneSlideIn {
-  from { opacity: 0; transform: translateX(-16px); }
-  to   { opacity: 1; transform: translateX(0); }
+  padding: clamp(18px, 2.5vw, 32px);
+  gap: clamp(12px, 2vw, 24px);
 }
 
+.ai-before {
+  flex: 0 0 auto;
+  display: flex; flex-direction: column; gap: 4px;
+  opacity: 0; animation: fadeUp 0.5s var(--ease-out) 0.1s forwards;
+}
+.ai-before-label {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-4); margin-bottom: 6px;
+}
+.ai-phase-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 8px; border-radius: 5px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.ai-phase-num { font-family: var(--font-mono); font-size: 9px; color: var(--text-4); min-width: 14px; }
+.ai-phase-name { font-size: clamp(9px, 0.9vw, 11px); color: var(--text-3); white-space: nowrap; }
+
+.ai-arrow {
+  flex-shrink: 0; display: flex; flex-direction: column;
+  align-items: center; gap: 6px;
+  opacity: 0; animation: fadeUp 0.5s var(--ease-out) 0.3s forwards;
+}
+.ai-arrow-line {
+  width: 1px; flex: 1; background: linear-gradient(to bottom, transparent, var(--text-4), transparent);
+  min-height: 40px;
+}
+.ai-arrow-sym { font-size: clamp(14px, 1.5vw, 18px); color: var(--text-3); }
+
+.ai-after {
+  flex: 1; display: flex; flex-direction: column; gap: 6px;
+  opacity: 0; animation: fadeUp 0.5s var(--ease-out) 0.2s forwards;
+}
+.ai-after-label {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.ai-zone-row { display: flex; align-items: center; }
 .ai-zone-pill {
-  padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 18px);
-  border-radius: 9px; border: 1px solid;
-  display: flex; align-items: center; gap: 10px;
-  transition: transform 0.3s var(--ease-out), filter 0.3s;
+  padding: clamp(6px, 0.8vw, 9px) clamp(10px, 1.2vw, 14px);
+  border-radius: 7px; border: 1px solid;
+  display: flex; align-items: center; gap: 8px;
+  transition: filter 0.25s, transform 0.25s var(--ease-out);
+  width: 100%;
 }
-.ai-process-diagram:hover .ai-zone-pill { filter: brightness(0.65); }
-.ai-process-diagram:hover .ai-process-row:hover .ai-zone-pill {
-  filter: brightness(1.1);
-  transform: translateX(8px);
-}
+.ai-after:hover .ai-zone-pill { filter: brightness(0.6); }
+.ai-after:hover .ai-zone-row:hover .ai-zone-pill { filter: brightness(1.1); transform: translateX(6px); }
 
 .ai-zone-num {
-  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
-  width: 22px; height: 22px; border-radius: 5px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  width: 18px; height: 18px; border-radius: 4px;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.ai-zone-name {
-  font-family: var(--font-display); font-size: clamp(12px, 1.4vw, 15px);
-  font-weight: 700; letter-spacing: -0.01em; flex: 1;
-}
-.ai-zone-tools {
-  font-family: var(--font-mono); font-size: clamp(9px, 0.9vw, 11px);
-  opacity: 0.55; white-space: nowrap;
-}
+.ai-zone-name { font-size: clamp(11px, 1.2vw, 13px); font-weight: 600; flex: 1; }
+.ai-zone-tools { font-family: var(--font-mono); font-size: clamp(8px, 0.8vw, 10px); opacity: 0.5; white-space: nowrap; }
 
-.az1 { background:rgba(100,80,200,0.22); border-color:rgba(140,110,240,0.5); }
-.az2 { background:rgba(30,130,120,0.22); border-color:rgba(60,180,165,0.5); }
-.az3 { background:rgba(160,80,30,0.22);  border-color:rgba(210,120,50,0.5); }
-.az4 { background:rgba(30,60,140,0.22);  border-color:rgba(60,100,210,0.5); }
-.az5 { background:rgba(30,100,50,0.22);  border-color:rgba(60,160,90,0.5); }
-.az6 { background:rgba(130,40,100,0.22); border-color:rgba(200,80,160,0.5); }
+/* Offsets for overlap story */
+.ai-zone-row:nth-child(2) .ai-zone-pill { margin-left: 3%; }
+.ai-zone-row:nth-child(3) .ai-zone-pill { margin-left: 7%; }
+.ai-zone-row:nth-child(4) .ai-zone-pill { margin-left: 5%; }
+.ai-zone-row:nth-child(5) .ai-zone-pill { margin-left: 4%; }
+.ai-zone-row:nth-child(6) .ai-zone-pill { margin-left: 1%; }
+
+.az1 { background:rgba(100,80,200,0.2); border-color:rgba(140,110,240,0.45); }
+.az2 { background:rgba(30,130,120,0.2); border-color:rgba(60,180,165,0.45); }
+.az3 { background:rgba(160,80,30,0.2);  border-color:rgba(210,120,50,0.45); }
+.az4 { background:rgba(30,60,140,0.2);  border-color:rgba(60,100,210,0.45); }
+.az5 { background:rgba(30,100,50,0.2);  border-color:rgba(60,160,90,0.45); }
+.az6 { background:rgba(130,40,100,0.2); border-color:rgba(200,80,160,0.45); }
 
 .az1 .ai-zone-num { background:rgba(140,110,240,0.3); color:#C8B4FF; }
 .az2 .ai-zone-num { background:rgba(60,180,165,0.3);  color:#6EDFCF; }
@@ -221,255 +204,299 @@
 .az5 .ai-zone-name { color:#78D898; }
 .az6 .ai-zone-name { color:#E888D0; }
 
-/* zone offsets for overlapping story */
-.ai-process-row:nth-child(1) .ai-zone-pill { margin-left: 0; }
-.ai-process-row:nth-child(2) .ai-zone-pill { margin-left: 3%; }
-.ai-process-row:nth-child(3) .ai-zone-pill { margin-left: 7%; }
-.ai-process-row:nth-child(4) .ai-zone-pill { margin-left: 5%; }
-.ai-process-row:nth-child(5) .ai-zone-pill { margin-left: 3.5%; }
-.ai-process-row:nth-child(6) .ai-zone-pill { margin-left: 1%; }
-
 /* CARD BODY */
-.card-body { padding: clamp(16px, 2vw, 24px); }
-.card-meta {
-  display: flex; align-items: center;
-  justify-content: space-between; margin-bottom: 8px;
+.card-body { padding: clamp(16px, 2vw, 22px); display: flex; flex-direction: column; flex: 1; }
+.card-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.card-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); font-weight: 500; }
+.card-tag.tag-new { color: var(--gold); background: var(--gold-dim); padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(212,151,59,0.2); }
+.card-arrow { font-size: 15px; color: var(--text-4); transition: color 0.2s, transform 0.25s var(--ease-out); }
+.project-card:hover .card-arrow { color: var(--gold); transform: translate(2px, -2px); }
+.card-title { font-size: clamp(15px, 1.7vw, 19px); font-weight: 600; color: var(--text-1); line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.01em; }
+.card-desc { font-size: clamp(13px, 1.3vw, 14px); color: var(--text-2); line-height: 1.6; font-weight: 300; flex: 1; }
+
+/* CARD STAT — bottom aligned, cleaner */
+.card-stat {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
 }
-.card-tag {
-  font-family: var(--font-mono); font-size: 10px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text-3); font-weight: 500;
-}
-.card-tag.tag-new {
-  color: var(--gold); background: var(--gold-dim);
-  padding: 3px 8px; border-radius: 20px;
-  border: 1px solid rgba(212,151,59,0.25);
-}
-.card-arrow {
-  font-size: 16px; color: var(--text-4);
-  transition: color 0.2s, transform 0.3s var(--ease-spring);
-}
-.project-card:hover .card-arrow { color: var(--gold); transform: translate(2px,-2px); }
-.card-title {
-  font-family: var(--font-display);
-  font-size: clamp(16px, 1.9vw, 21px);
-  font-weight: 700; color: var(--text-1);
-  line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.02em;
-}
-.card-desc {
-  font-size: clamp(12px, 1.2vw, 13px); color: var(--text-2);
-  line-height: 1.6; font-weight: 300; margin-bottom: 12px;
-}
-.card-metric {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--font-mono); font-size: 10px;
-  color: var(--gold); letter-spacing: 0.04em;
-  padding: 3px 9px; background: var(--gold-dim);
-  border-radius: 20px; border: 1px solid rgba(212,151,59,0.2);
-}
+.card-stat-label { font-size: 12px; color: var(--text-3); font-weight: 400; }
+.card-stat-value { font-size: 14px; font-weight: 600; color: var(--gold); white-space: nowrap; letter-spacing: 0; }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav-logo">[UX Kitt]™</a>
-  <ul class="nav-links">
-    <li><a href="mailto:kitt@uxkitt.com">Contact <span class="nav-arrow">↗</span></a></li>
-    <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn <span class="nav-arrow">↗</span></a></li>
-    <li><a href="#" style="pointer-events:none;color:var(--text-3)">Denver, CO ⛰</a></li>
-  </ul>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">[UX Kitt]™</a>
+    <ul class="nav-links">
+      <li><a href="mailto:kitt@uxkitt.com">Contact <span class="nav-arrow">↗</span></a></li>
+      <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn <span class="nav-arrow">↗</span></a></li>
+      <li><a href="#" style="pointer-events:none;color:var(--text-3)">Denver, CO</a></li>
+    </ul>
+  </div>
 </nav>
 
 <main class="page">
+
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-meta">Selected work · 2011 – Present Day</div>
-    <h1 class="hero-headline">Systems-Driven Design.<br>Human-Centered Results.</h1>
-    <p class="hero-sub">With over 15 years in UX &amp; Product Design, from complex enterprise systems to consumer apps used by tens of millions, I specialize in mobile, tablet, desktop, and TV 0→1 products at scale. My work operates at the intersection of AI, systems thinking, sharp craft, and measurable outcomes.</p>
-  </section>
-
-  <section class="clients reveal">
-    <p class="section-label">Selected clients &amp; collaborators</p>
-    <div class="clients-grid">
-      <span class="client-name">Microsoft</span><span class="client-name">AT&amp;T</span>
-      <span class="client-name">Apple</span><span class="client-name">DirecTV</span>
-      <span class="client-name">Critical Mass</span><span class="client-name">Cox Enterprises</span>
-      <span class="client-name">BellSouth</span><span class="client-name">Interbrand</span>
-      <span class="client-name">BBDO</span><span class="client-name">Method</span>
-      <span class="client-name">Cingular</span><span class="client-name">Thrive</span>
-      <span class="client-name">The Oscars</span><span class="client-name">U-verse</span>
+    <div class="hero-inner">
+      <div class="hero-meta">Selected work, 2011 to Present</div>
+      <h1 class="hero-headline">Systems-Driven Design.<br>Human-Centered Results.</h1>
+      <p class="hero-sub">With over 15 years in UX and Product Design, from complex enterprise systems to consumer apps used by tens of millions, I specialize in mobile, tablet, desktop, and TV products at scale. My work operates at the intersection of AI, systems thinking, sharp craft, and measurable outcomes.</p>
     </div>
   </section>
 
   <section class="projects">
-    <div class="projects-header reveal">
-      <h2 class="projects-title">Work</h2>
-      <span class="projects-count">11 projects</span>
-    </div>
-    <div class="projects-grid">
+    <div class="container">
+      <div class="projects-header reveal">
+        <h2 class="projects-title">Selected Work</h2>
+        <span class="projects-count">11 projects</span>
+      </div>
+      <div class="projects-grid">
 
-      <a href="ai-process.html" class="project-card featured reveal">
-        <div class="card-visual">
-          <div class="card-gradient grad-ai"></div>
-          <div class="ai-card-visual">
-            <div class="ai-process-diagram">
-              <div class="ai-process-row"><div class="ai-zone-pill az1"><div class="ai-zone-num">01</div><div class="ai-zone-name">Frame</div><div class="ai-zone-tools">Claude · Perplexity</div></div></div>
-              <div class="ai-process-row"><div class="ai-zone-pill az2"><div class="ai-zone-num">02</div><div class="ai-zone-name">Explore</div><div class="ai-zone-tools">FigJam AI · v0</div></div></div>
-              <div class="ai-process-row"><div class="ai-zone-pill az3"><div class="ai-zone-num">03</div><div class="ai-zone-name">Build &amp; Test</div><div class="ai-zone-tools">Figma · Lovable · Cursor</div></div></div>
-              <div class="ai-process-row"><div class="ai-zone-pill az4"><div class="ai-zone-num">04</div><div class="ai-zone-name">Systematize</div><div class="ai-zone-tools">Tokens Studio · MCP</div></div></div>
-              <div class="ai-process-row"><div class="ai-zone-pill az5"><div class="ai-zone-num">05</div><div class="ai-zone-name">Ship</div><div class="ai-zone-tools">Claude Code · GitHub</div></div></div>
-              <div class="ai-process-row"><div class="ai-zone-pill az6"><div class="ai-zone-num">06</div><div class="ai-zone-name">Document</div><div class="ai-zone-tools">Claude</div></div></div>
+        <!-- AI PROCESS FEATURED -->
+        <a href="ai-process.html" class="project-card featured reveal">
+          <div class="card-visual">
+            <div class="card-gradient grad-ai"></div>
+            <div class="ai-card-inner">
+
+              <!-- LEFT: 14 phases -->
+              <div class="ai-before">
+                <div class="ai-before-label">14 sequential phases</div>
+                <div class="ai-phase-row"><span class="ai-phase-num">01</span><span class="ai-phase-name">Strategic Framing</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">02</span><span class="ai-phase-name">PRD and User Stories</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">03</span><span class="ai-phase-name">Research and Analysis</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">04</span><span class="ai-phase-name">Journey Mapping</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">05</span><span class="ai-phase-name">Task Flows</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">06</span><span class="ai-phase-name">Lo-fi Exploration</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">07</span><span class="ai-phase-name">Usability Testing</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">08</span><span class="ai-phase-name">Hi-fi and Motion</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">09</span><span class="ai-phase-name">Design System</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">10</span><span class="ai-phase-name">DTCG Tokens</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">11</span><span class="ai-phase-name">Code Connect</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">12</span><span class="ai-phase-name">MCP Integration</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">13</span><span class="ai-phase-name">Prototype in Code</span></div>
+                <div class="ai-phase-row"><span class="ai-phase-num">14</span><span class="ai-phase-name">Dev Handoff</span></div>
+              </div>
+
+              <!-- ARROW -->
+              <div class="ai-arrow">
+                <div class="ai-arrow-line"></div>
+                <div class="ai-arrow-sym">→</div>
+                <div class="ai-arrow-line"></div>
+              </div>
+
+              <!-- RIGHT: 6 zones -->
+              <div class="ai-after">
+                <div class="ai-after-label">6 overlapping zones</div>
+                <div class="ai-zone-row"><div class="ai-zone-pill az1"><div class="ai-zone-num">01</div><div class="ai-zone-name">Frame</div><div class="ai-zone-tools">Claude, Perplexity</div></div></div>
+                <div class="ai-zone-row"><div class="ai-zone-pill az2"><div class="ai-zone-num">02</div><div class="ai-zone-name">Explore</div><div class="ai-zone-tools">FigJam AI, v0</div></div></div>
+                <div class="ai-zone-row"><div class="ai-zone-pill az3"><div class="ai-zone-num">03</div><div class="ai-zone-name">Build and Test</div><div class="ai-zone-tools">Figma, Lovable</div></div></div>
+                <div class="ai-zone-row"><div class="ai-zone-pill az4"><div class="ai-zone-num">04</div><div class="ai-zone-name">Systematize</div><div class="ai-zone-tools">Tokens Studio, MCP</div></div></div>
+                <div class="ai-zone-row"><div class="ai-zone-pill az5"><div class="ai-zone-num">05</div><div class="ai-zone-name">Ship</div><div class="ai-zone-tools">Claude Code, GitHub</div></div></div>
+                <div class="ai-zone-row"><div class="ai-zone-pill az6"><div class="ai-zone-num">06</div><div class="ai-zone-name">Document</div><div class="ai-zone-tools">Claude</div></div></div>
+              </div>
+
             </div>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag tag-new">AI Process · 2026</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">Researching the Modern AI Design Process</h3>
-          <p class="card-desc">Before starting a major portfolio project, I spent weeks validating how elite teams at Stripe, Linear, Ramp, and Vercel actually work. What I found reshaped the entire methodology — 14 sequential phases became 6 overlapping zones. The process itself became the portfolio artifact.</p>
-          <div class="card-metric">14 phases → 6 zones · Staff/Principal process signal</div>
-        </div>
-      </a>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag tag-new">AI Process, 2026</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">Researching the Modern AI Design Process</h3>
+            <p class="card-desc">Before starting a major portfolio project, I spent weeks validating how elite teams at Stripe, Linear, Ramp, and Vercel actually work. What I found reshaped the entire methodology. 14 sequential phases became 6 overlapping zones. The process itself became the portfolio artifact.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Methodology shift</span>
+              <span class="card-stat-value">14 phases to 6 zones</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="proservice.html" class="project-card reveal reveal-delay-1">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/v8ycYl5bdEOd4UuO9A0LmPuR8w.jpg" alt="ProService Admin Dashboard">
-          <div class="card-gradient grad-proservice" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Enterprise · HR SaaS</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">ProService Admin Dashboard</h3>
-          <p class="card-desc">End-to-end redesign of ProService's HR admin experience. Led UX strategy, interviewed 10 admins, and delivered a scalable system balancing data visualization with operational clarity.</p>
-          <div class="card-metric">↑ NPS · Scalable foundation for future features</div>
-        </div>
-      </a>
+        <!-- PROSERVICE -->
+        <a href="proservice.html" class="project-card reveal reveal-delay-1">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/v8ycYl5bdEOd4UuO9A0LmPuR8w.jpg" alt="ProService Admin Dashboard">
+            <div class="card-gradient grad-proservice" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Enterprise, HR SaaS</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">ProService Admin Dashboard</h3>
+            <p class="card-desc">End-to-end redesign of ProService's HR admin experience. Led UX strategy, interviewed 10 admins, and delivered a scalable system balancing data visualization with operational clarity.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Impact</span>
+              <span class="card-stat-value">NPS improvement, scalable foundation</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/compass" target="_blank" class="project-card reveal reveal-delay-2">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/KIrjdgkkNOEmQKupdSbTNwLhoU.png" alt="AT&T Compass">
-          <div class="card-gradient grad-compass" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Enterprise · Field Ops</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">AT&amp;T Compass</h3>
-          <p class="card-desc">Real-time field ops app for AT&amp;T Field Managers. Built the design system, partnered with engineering on Storybook integration, and established quality frameworks that raised standards org-wide.</p>
-          <div class="card-metric">NPS doubled · Support tickets ↓ 25%</div>
-        </div>
-      </a>
+        <!-- AT&T COMPASS -->
+        <a href="https://www.uxkitt.com/compass" target="_blank" class="project-card reveal reveal-delay-2">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/vkANDNOk8aRmdRv7UCaKLBszFT4.png" alt="AT&T Compass">
+            <div class="card-gradient grad-compass" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Enterprise, Field Ops</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">AT&T Compass</h3>
+            <p class="card-desc">Real-time field ops app for AT&T Field Managers. Built the design system, partnered with engineering on Storybook integration, and established quality frameworks that raised the bar org-wide.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Outcomes</span>
+              <span class="card-stat-value">NPS doubled, support tickets down 25%</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/directv" target="_blank" class="project-card reveal reveal-delay-1">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/brYuS6og4HSDXRXFPtcTYMvvI7Q.jpeg" alt="DirecTV Mobile">
-          <div class="card-gradient grad-directv" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Mobile · TV</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">DirecTV Mobile Apps</h3>
-          <p class="card-desc">Led full mobile redesign post-AT&amp;T merger. Rebuilt reliability, accessibility, and core user flows from scratch. Fastest rating recovery in the product's history.</p>
-          <div class="card-metric">App Store 1.3 → 4.6 · Under 12 months</div>
-        </div>
-      </a>
+        <!-- DIRECTV -->
+        <a href="https://www.uxkitt.com/directv" target="_blank" class="project-card reveal reveal-delay-1">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/brYuS6og4HSDXRXFPtcTYMvvI7Q.jpeg" alt="DirecTV Mobile">
+            <div class="card-gradient grad-directv" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Mobile, TV</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">DirecTV Mobile Apps</h3>
+            <p class="card-desc">Led full mobile redesign post-AT&T merger. Rebuilt reliability, accessibility, and core user flows from scratch. Fastest rating recovery in the product's history.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">App Store rating</span>
+              <span class="card-stat-value">1.3 to 4.6 in under 12 months</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/life" target="_blank" class="project-card reveal reveal-delay-2">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/pTNXHAP2hI6L67BfQcR0mgrf4.jpg" alt="Life App">
-          <div class="card-gradient grad-life" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Mobile · Health</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">Life</h3>
-          <p class="card-desc">First mobile app to let users define and track fully custom health metrics. Built around habit formation, personal goals, and long-term behavioral change at massive scale.</p>
-          <div class="card-metric">22M downloads · 500k DAU</div>
-        </div>
-      </a>
+        <!-- LIFE -->
+        <a href="https://www.uxkitt.com/life" target="_blank" class="project-card reveal reveal-delay-2">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/pTNXHAP2hI6L67BfQcR0mgrf4.jpg" alt="Life App">
+            <div class="card-gradient grad-life" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Mobile, Health</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">Life</h3>
+            <p class="card-desc">First mobile app to let users define and track fully custom health metrics. Built around habit formation, personal goals, and long-term behavioral change at massive scale.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Scale</span>
+              <span class="card-stat-value">22M downloads, 500k DAU</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/one" target="_blank" class="project-card reveal reveal-delay-1">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/uTyMoK1YRC2HeFs2NSaM8eWwg.jpg" alt="One App">
-          <div class="card-gradient grad-one" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Mobile · Health</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">One</h3>
-          <p class="card-desc">The evolution of Life. Unified cycle tracking, fertility, pregnancy, symptoms, mood, nutrition, and appointments into one clear experience. Simplicity at the core of a complex health system.</p>
-          <div class="card-metric">Zero-friction onboarding · Full health ecosystem</div>
-        </div>
-      </a>
+        <!-- ONE -->
+        <a href="https://www.uxkitt.com/one" target="_blank" class="project-card reveal reveal-delay-1">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/uTyMoK1YRC2HeFs2NSaM8eWwg.jpg" alt="One App">
+            <div class="card-gradient grad-one" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Mobile, Health</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">One</h3>
+            <p class="card-desc">The evolution of Life. Unified cycle tracking, fertility, pregnancy, symptoms, mood, nutrition, and appointments into a single, responsive experience built around simplicity and ease.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Approach</span>
+              <span class="card-stat-value">Zero-friction, full health ecosystem</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/uverse-next-gen" target="_blank" class="project-card reveal reveal-delay-2">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/6Vpcwq0VUXnWXUydDueeKiUpug.jpg" alt="U-verse TV">
-          <div class="card-gradient grad-uverse" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">TV · Set-top Box</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">U-verse Next Gen TV</h3>
-          <p class="card-desc">FCC-driven strategic redesign across set-top box, mobile, and IPTV. Partnered with Frog Design to modernize and unify the full U-verse ecosystem for millions of subscribers.</p>
-          <div class="card-metric">Multiplatform: TV · Mobile · IPTV</div>
-        </div>
-      </a>
+        <!-- U-VERSE -->
+        <a href="https://www.uxkitt.com/uverse-next-gen" target="_blank" class="project-card reveal reveal-delay-2">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/6Vpcwq0VUXnWXUydDueeKiUpug.jpg" alt="U-verse TV">
+            <div class="card-gradient grad-uverse" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">TV, Set-top Box</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">U-verse Next Gen TV</h3>
+            <p class="card-desc">FCC-driven strategic redesign across set-top box, mobile, and IPTV. Partnered with Frog Design to modernize and unify the full U-verse ecosystem for millions of subscribers.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Platforms</span>
+              <span class="card-stat-value">TV, Mobile, IPTV</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/att-homepage" target="_blank" class="project-card reveal reveal-delay-1">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/YlQA9FCwZEk6wPZ7J9vg04AQHxI.jpg" alt="AT&T Homepage">
-          <div class="card-gradient grad-atthome" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Web · eCommerce</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">AT&amp;T Homepage</h3>
-          <p class="card-desc">End-to-end redesign of AT&amp;T.com. Simultaneously improved task success, time on task, cart abandonment, and CSAT — a rare result in large-scale digital commerce.</p>
-          <div class="card-metric">Highest-grossing month in site history</div>
-        </div>
-      </a>
+        <!-- AT&T HOMEPAGE -->
+        <a href="https://www.uxkitt.com/att-homepage" target="_blank" class="project-card reveal reveal-delay-1">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/YlQA9FCwZEk6wPZ7J9vg04AQHxI.jpg" alt="AT&T Homepage">
+            <div class="card-gradient grad-atthome" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Web, eCommerce</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">AT&T Homepage</h3>
+            <p class="card-desc">End-to-end redesign of AT&T.com. Improved task success, time on task, cart abandonment, and customer satisfaction simultaneously, a rare result in large-scale digital commerce.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Launch result</span>
+              <span class="card-stat-value">Highest-grossing month in site history</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/att-digital-guide" target="_blank" class="project-card reveal reveal-delay-2">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/ZKKoj67LqNepqANxjrmbAqTvcg.jpeg" alt="AT&T Digital Guide">
-          <div class="card-gradient grad-attguide" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Mobile · Onboarding</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">AT&amp;T Digital Guide</h3>
-          <p class="card-desc">Replaced fragmented manual onboarding with a structured mobile experience for new call center agents. Reduced setup errors and scaled consistently across thousands of locations.</p>
-          <div class="card-metric">Scalable across all AT&T locations</div>
-        </div>
-      </a>
+        <!-- AT&T DIGITAL GUIDE -->
+        <a href="https://www.uxkitt.com/att-digital-guide" target="_blank" class="project-card reveal reveal-delay-2">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/ZKKoj67LqNepqANxjrmbAqTvcg.jpeg" alt="AT&T Digital Guide">
+            <div class="card-gradient grad-attguide" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Mobile, Onboarding</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">AT&T Digital Guide</h3>
+            <p class="card-desc">Replaced fragmented manual onboarding with a structured mobile experience for new call center agents. Reduced setup errors and scaled consistently across thousands of locations.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Reach</span>
+              <span class="card-stat-value">All AT&T call center locations</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/landlab" target="_blank" class="project-card reveal reveal-delay-1">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/byVLGNrUCW5nImYh5I4LEA5dp5Q.jpg" alt="LandLab">
-          <div class="card-gradient grad-landlab" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Web · Entrepreneurship</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">LandLab</h3>
-          <p class="card-desc">Tech-enabled landscaping company I co-founded. Led digital strategy end-to-end — brand identity through automated intake, estimating, scheduling, and invoicing workflows.</p>
-          <div class="card-metric">Fully booked in 6 months · 5-star Google rating</div>
-        </div>
-      </a>
+        <!-- LANDLAB -->
+        <a href="https://www.uxkitt.com/landlab" target="_blank" class="project-card reveal reveal-delay-1">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/byVLGNrUCW5nImYh5I4LEA5dp5Q.jpg" alt="LandLab">
+            <div class="card-gradient grad-landlab" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Web, Entrepreneurship</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">LandLab</h3>
+            <p class="card-desc">Tech-enabled landscaping company I co-founded. Led digital strategy end-to-end, from brand identity through automated intake, estimating, scheduling, and invoicing workflows.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Growth</span>
+              <span class="card-stat-value">Fully booked in 6 months, 5-star rating</span>
+            </div>
+          </div>
+        </a>
 
-      <a href="https://www.uxkitt.com/eng" target="_blank" class="project-card reveal reveal-delay-2">
-        <div class="card-visual">
-          <img src="https://framerusercontent.com/images/pSDK2ki2T1w0TDjyDRb3z8Xd78.jpg" alt="ENG App">
-          <div class="card-gradient grad-eng" style="opacity:0.35"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-meta"><span class="card-tag">Mobile · EdTech</span><span class="card-arrow">↗</span></div>
-          <h3 class="card-title">ENG</h3>
-          <p class="card-desc">Language learning app designed around game mechanics and habit formation. Teaches the top 1,000 English words through spaced repetition, micro-lessons, and daily streaks.</p>
-          <div class="card-metric">Game-based · Cognitive ease optimized</div>
-        </div>
-      </a>
+        <!-- ENG -->
+        <a href="https://www.uxkitt.com/eng" target="_blank" class="project-card reveal reveal-delay-2">
+          <div class="card-visual">
+            <img src="https://framerusercontent.com/images/pSDK2ki2T1w0TDjyDRb3z8Xd78.jpg" alt="ENG App">
+            <div class="card-gradient grad-eng" style="opacity:0.3"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-tag">Mobile, EdTech</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">ENG</h3>
+            <p class="card-desc">Language learning app designed around game mechanics and habit formation. Teaches the top 1,000 English words through spaced repetition, micro-lessons, and daily streaks.</p>
+            <div class="card-stat">
+              <span class="card-stat-label">Design approach</span>
+              <span class="card-stat-value">Game-based, cognitive ease optimized</span>
+            </div>
+          </div>
+        </a>
 
+      </div>
     </div>
   </section>
+
 </main>
 
 <footer class="footer">
-  <span class="footer-copy">© 2026 Kitt Tucker</span>
-  <ul class="footer-links">
-    <li><a href="mailto:kitt@uxkitt.com">Contact ↗</a></li>
-    <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn ↗</a></li>
-  </ul>
+  <div class="footer-inner">
+    <span class="footer-copy">2026 Kitt Tucker</span>
+    <ul class="footer-links">
+      <li><a href="mailto:kitt@uxkitt.com">Contact</a></li>
+      <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
 </footer>
 
 <script src="main.js"></script>
