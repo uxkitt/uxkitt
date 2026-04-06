@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProService Admin Dashboard Redesign | Kitt Tucker</title>
+<meta name="description" content="Modernizing the HR admin experience at ProService. UX strategy, research with 10 HR administrators, and a scalable dashboard redesign.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.cs-page { padding-top: 60px; }
+
+.cs-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+/* NAV */
+.cs-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 18px 0;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,13,0.9);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transform: translateY(-100%); opacity: 0;
+  animation: navIn 0.6s var(--ease-out) 0.1s forwards;
+}
+@keyframes navIn { to { transform: translateY(0); opacity: 1; } }
+
+/* HERO */
+.cs-hero {
+  padding: clamp(52px, 6.5vw, 80px) 0 clamp(36px, 4.5vw, 52px);
+}
+.cs-meta-row {
+  display: flex; gap: clamp(24px, 4vw, 52px);
+  margin-bottom: clamp(24px, 3vw, 36px); flex-wrap: wrap;
+}
+.cs-meta-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 4px;
+}
+.cs-meta-value { font-size: 14px; color: var(--text-2); font-weight: 400; letter-spacing: 0; }
+.cs-title {
+  font-size: clamp(26px, 4vw, 48px); font-weight: 700;
+  letter-spacing: 0; line-height: 1.1; color: var(--text-1);
+  margin-bottom: clamp(14px, 1.8vw, 22px); max-width: 820px;
+}
+.cs-lead {
+  font-size: clamp(14px, 1.5vw, 16px); color: var(--text-2);
+  line-height: 1.75; font-weight: 300; max-width: 680px;
+}
+
+/* HERO IMAGE */
+.cs-hero-img-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+.cs-hero-img {
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.cs-hero-img img { width: 100%; display: block; height: auto; }
+
+/* SECTION */
+.cs-section { padding: clamp(36px, 4.5vw, 52px) 0 0; }
+
+.cs-label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 9px;
+  margin-bottom: 12px;
+}
+.cs-label::before {
+  content: ''; display: block; width: 16px; height: 1px;
+  background: var(--gold); flex-shrink: 0;
+}
+
+.cs-h2 {
+  font-size: clamp(18px, 2.2vw, 26px); font-weight: 600;
+  letter-spacing: 0; color: var(--text-1);
+  line-height: 1.25; margin-bottom: clamp(12px, 1.5vw, 18px);
+}
+
+.cs-h3 {
+  font-size: clamp(14px, 1.6vw, 17px); font-weight: 600;
+  letter-spacing: 0; color: var(--text-1);
+  line-height: 1.3; margin-bottom: 10px;
+  margin-top: clamp(24px, 3vw, 32px);
+}
+
+.cs-copy {
+  font-size: clamp(13px, 1.4vw, 15px); color: var(--text-2);
+  line-height: 1.8; font-weight: 300;
+}
+.cs-copy p + p { margin-top: 0.9em; }
+.cs-copy strong { color: var(--text-1); font-weight: 500; }
+
+/* DIVIDER */
+.cs-div { height: 1px; background: var(--border); margin: clamp(36px, 4.5vw, 52px) 0; }
+
+/* IMAGES */
+.cs-img {
+  margin: clamp(20px, 2.5vw, 32px) 0;
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+}
+.cs-img img { width: 100%; height: auto; display: block; }
+.cs-img-cap {
+  padding: 10px 18px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-3); letter-spacing: 0.02em;
+  border-top: 1px solid var(--border); background: var(--surface);
+}
+
+/* Contained image (for tall/portrait images) */
+.cs-img-contained {
+  margin: clamp(20px, 2.5vw, 32px) 0;
+  display: flex; justify-content: flex-start;
+}
+.cs-img-contained .cs-img {
+  margin: 0;
+  max-width: 650px;
+  width: 100%;
+}
+
+/* IMAGE GRID */
+.cs-img-3col {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin: clamp(20px, 2.5vw, 32px) 0;
+}
+@media (max-width: 640px) { .cs-img-3col { grid-template-columns: 1fr; } }
+.cs-img-3col .cs-img { margin: 0; }
+
+/* FINDING ITEMS */
+.cs-findings { display: flex; flex-direction: column; gap: 10px; margin: clamp(16px, 2vw, 22px) 0; }
+.cs-finding {
+  display: flex; gap: 14px; padding: clamp(14px, 1.8vw, 18px);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.cs-finding-num {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-4); font-weight: 500; padding-top: 2px; min-width: 20px;
+}
+.cs-finding-title { font-size: 14px; font-weight: 500; color: var(--text-1); margin-bottom: 3px; letter-spacing: 0; }
+.cs-finding-body { font-size: 13px; color: var(--text-2); line-height: 1.6; font-weight: 300; }
+
+/* BULLETS */
+.cs-bullets { list-style: none; padding: 0; margin: clamp(12px, 1.5vw, 18px) 0; display: flex; flex-direction: column; gap: 8px; }
+.cs-bullets li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: clamp(13px, 1.4vw, 15px); color: var(--text-2); font-weight: 300; line-height: 1.65;
+}
+.cs-bullets li::before {
+  content: ''; display: block; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0; margin-top: 9px;
+}
+
+/* MORE PROJECTS */
+.cs-more { border-top: 1px solid var(--border); padding: clamp(36px, 4.5vw, 52px) 0; }
+.cs-more-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-3); margin-bottom: clamp(16px, 2vw, 24px);
+}
+.cs-more-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px;
+}
+.more-card {
+  display: block; padding: clamp(16px, 2vw, 22px);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  transition: border-color 0.3s, transform 0.3s var(--ease-out);
+}
+.more-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+.more-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 7px; }
+.more-title { font-size: clamp(14px, 1.5vw, 16px); color: var(--text-1); font-weight: 600; margin-bottom: 5px; letter-spacing: 0; line-height: 1.3; }
+.more-desc { font-size: 12px; color: var(--text-3); line-height: 1.5; font-weight: 300; }
+</style>
+</head>
+<body>
+
+<nav class="cs-nav">
+  <div style="max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,48px);">
+    <a href="index.html" class="nav-back">← All Work</a>
+    <span class="nav-tag">Enterprise, 2024</span>
+  </div>
+</nav>
+
+<main class="cs-page">
+
+  <!-- ══ HERO ══ -->
+  <div class="cs-wrap">
+    <header class="cs-hero reveal">
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Year</div><div class="cs-meta-value">2024</div></div>
+        <div><div class="cs-meta-label">My Role</div><div class="cs-meta-value">Principal Product Designer</div></div>
+      </div>
+      <h1 class="cs-title">ProService North Star:<br>The Admin Dashboard Redesign</h1>
+      <p class="cs-lead">ProService's Admin Dashboard redesign was a pivotal project aimed at modernizing the HR experience for administrators while aligning with strategic business objectives. The redesign introduced a streamlined interface and enhanced data-driven insights, creating a foundation for future applications. The result was a user-centered solution that balanced innovation with operational efficiency.</p>
+    </header>
+  </div>
+
+  <!-- IMAGE 0: Hero laptop -->
+  <div class="cs-hero-img-wrap">
+    <div class="cs-hero-img reveal">
+      <img src="https://framerusercontent.com/images/v8ycYl5bdEOd4UuO9A0LmPuR8w.jpg" alt="ProService Admin Dashboard on laptop">
+    </div>
+  </div>
+
+  <!-- ══ CHALLENGE / SOLUTION / APPROACH / OUTCOME ══ -->
+  <div class="cs-wrap">
+
+    <div class="cs-section reveal">
+      <div class="cs-label">Challenge</div>
+      <div class="cs-copy">
+        <p>The existing Admin Dashboard at ProService was outdated, unintuitive, and failed to meet the evolving needs of HR administrators. Users expressed frustration with poor navigation, limited functionality, and a lack of actionable insights, hindering their ability to manage critical HR tasks efficiently. These shortcomings not only impacted user satisfaction but also limited ProService's ability to differentiate itself in the market and achieve its strategic goals for growth and adoption.</p>
+      </div>
+    </div>
+
+    <div class="cs-section reveal">
+      <div class="cs-label">Solution</div>
+      <div class="cs-copy">
+        <p>The primary goal of the Admin Dashboard redesign was to modernize the user experience for HR administrators while aligning with ProService's strategic objectives. This included driving growth by increasing market adoption, enhancing customer value through improved functionality, and improving overall customer satisfaction. The redesign introduced an intuitive interface, actionable insights, and scalable architecture, establishing a strong foundation for future product iterations.</p>
+      </div>
+    </div>
+
+    <div class="cs-section reveal">
+      <div class="cs-label">Approach</div>
+      <div class="cs-copy">
+        <p>To tackle the challenges of the Admin Dashboard redesign, a user-centered design approach was employed. This began with in-depth research, including interviews with ProService employees, subject matter experts, and HR administrators to uncover pain points and desired functionalities. Additional insights were gathered from NPS scores, Salesforce data, and support emails to form a comprehensive understanding of user needs. Collaboration was key throughout the process, involving cross-functional teams such as product management, development, and branding to align the redesign with technical capabilities and business objectives. Initial wireframes were created to address user priorities, with iterative improvements made to balance innovation with operational feasibility.</p>
+      </div>
+    </div>
+
+    <div class="cs-section reveal">
+      <div class="cs-label">Outcome</div>
+      <div class="cs-copy">
+        <p>The redesigned Admin Dashboard introduced a modern, streamlined interface that prioritized usability and data-driven decision-making. Key features included enhanced navigation, improved Favorites functionality, and intuitive Employee Management tools, all tailored to address user feedback. Additionally, the redesign incorporated visual data insights, such as charts and graphs, to align with ProService's strategic objective of offering new functionality. This solution provided administrators with a more efficient and engaging experience while laying the groundwork for future iterations based on user feedback and evolving business needs.</p>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- ══ FIGMA ARCHITECTURE ══ -->
+    <div class="cs-section reveal">
+      <div class="cs-label">Figma Architecture</div>
+
+      <!-- IMAGE 1: Wireframe/concept - appears right at start of Figma Architecture section -->
+      <div class="cs-img">
+        <img src="https://framerusercontent.com/images/p5kEHiFPNtFEpNyB8rjUOaKgo.png" alt="Figma architecture and wireframe concepts">
+        <div class="cs-img-cap">Early design exploration and Figma file architecture</div>
+      </div>
+
+      <h2 class="cs-h2">Identifying the Challenges: The Original Dashboard</h2>
+      <div class="cs-copy">
+        <p>The original Admin Dashboard lacked the usability and functionality required to support administrators effectively, resulting in inefficiencies and user frustration. Key pain points included a cluttered interface, inconsistent navigation, and limited capabilities for critical tasks like payroll and employee management. These shortcomings not only impeded user satisfaction but also restricted ProService's ability to achieve its business goals of driving customer adoption and creating innovative, scalable solutions. A comprehensive redesign was imperative to address these challenges and position the platform as a cornerstone of ProService's growth strategy.</p>
+      </div>
+
+      <!-- IMAGE 2: Original dashboard / mid-fi view -->
+      <div class="cs-img">
+        <img src="https://framerusercontent.com/images/thZraYyUOnQRS1jYCAwkb4KZOQ.jpg" alt="Original dashboard identifying challenges">
+        <div class="cs-img-cap">Original dashboard analysis identifying key usability failures</div>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- ══ DESIGN PROCESS ══ -->
+    <div class="cs-section reveal">
+      <div class="cs-label">Design Process</div>
+      <h2 class="cs-h2">UX Research</h2>
+
+      <h3 class="cs-h3">Objective</h3>
+      <div class="cs-copy">
+        <p>To create a user-centered redesign of the ProService Admin Dashboard, I conducted comprehensive UX research to understand the needs, challenges, and behaviors of HR administrators. This research laid the foundation for informed design decisions that aligned with both user expectations and business objectives.</p>
+      </div>
+
+      <h3 class="cs-h3">Methods</h3>
+      <div class="cs-copy">
+        <p>I began with a heuristic evaluation of the existing dashboard to identify usability issues and inefficiencies, such as poor navigation and inconsistent design patterns. Stakeholder interviews with Subject Matter Experts, Sales, and Marketing teams ensured alignment with strategic business goals and KPIs. Additionally, user interviews with 10 HR admins provided critical insights into workflows, frustrations, and desired features.</p>
+        <p>Data analysis played a complementary role, with reviews of support tickets, NPS score summaries, and Salesforce data uncovering recurring user challenges. To position ProService as a market leader, I also conducted a competitive analysis, identifying best practices and opportunities to differentiate the dashboard.</p>
+      </div>
+
+      <h3 class="cs-h3">Key Findings</h3>
+      <div class="cs-copy">
+        <p>The research revealed several pain points, including inefficient navigation, limited data accessibility, and a lack of customization options. Frequent errors and insufficient feedback mechanisms further hindered admin workflows, while inconsistent usage patterns underscored the need for a flexible design that catered to both power users and occasional users.</p>
+      </div>
+
+      <h3 class="cs-h3">Impact on Design</h3>
+      <div class="cs-copy">
+        <p>These insights directly informed the redesign, leading to a streamlined navigation structure, improved data visibility, and enhanced customization options. Robust error-handling features were integrated to build user trust and improve efficiency. By grounding the design in UX research, I delivered a solution that balanced innovation, usability, and strategic alignment.</p>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <div class="cs-section reveal">
+      <div class="cs-label">User Interviews</div>
+      <h2 class="cs-h2">10 admins, 5 patterns</h2>
+
+      <h3 class="cs-h3">Objective</h3>
+      <div class="cs-copy">
+        <p>To deeply understand the pain points, workflows, and priorities of HR administrators, I conducted a series of interviews with ProService admins. These conversations were pivotal in shaping the direction of the dashboard redesign.</p>
+      </div>
+
+      <h3 class="cs-h3">Process</h3>
+      <div class="cs-copy">
+        <p>I interviewed 10 admins across various roles to capture a diverse range of experiences. Each session focused on uncovering user frustrations, identifying frequently used features, and exploring desired improvements. Admins were encouraged to walk me through their workflows, share specific examples of challenges, and highlight opportunities for improvement.</p>
+      </div>
+
+      <h3 class="cs-h3">Key Findings</h3>
+      <div class="cs-findings">
+        <div class="cs-finding">
+          <span class="cs-finding-num">01</span>
+          <div>
+            <div class="cs-finding-title">Navigation Issues</div>
+            <div class="cs-finding-body">Admins struggled with finding key tools and information due to inefficient navigation. Excessive clicks and poor organization slowed down their workflows.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">02</span>
+          <div>
+            <div class="cs-finding-title">Data Accessibility</div>
+            <div class="cs-finding-body">Critical data, such as employee metrics and reports, was often buried under multiple layers, making it hard to retrieve actionable insights quickly.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">03</span>
+          <div>
+            <div class="cs-finding-title">Customizability Lacking</div>
+            <div class="cs-finding-body">The existing dashboard lacked flexibility to adapt to specific user workflows, leading to frustration among admins with diverse needs.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">04</span>
+          <div>
+            <div class="cs-finding-title">Frequent Errors</div>
+            <div class="cs-finding-body">Admins encountered recurring errors with data input and retrieval, often with no clear feedback or resolution, further hindering productivity.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">05</span>
+          <div>
+            <div class="cs-finding-title">Task-Specific Usage</div>
+            <div class="cs-finding-body">While some admins were heavy users of the dashboard for daily operations, others used it occasionally for specific tasks. This variability emphasized the need for a design that accommodates both frequent and infrequent users.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="cs-h3">Impact on Design</h3>
+      <div class="cs-copy">
+        <p>These interviews provided valuable insights that directly informed the redesign. By addressing navigation inefficiencies, enhancing data accessibility, and introducing customization options, I created a dashboard that aligned with admin needs. The findings also underscored the importance of implementing robust error feedback mechanisms and simplifying workflows for both power users and occasional users.</p>
+        <p>The insights from these interviews ensured that the redesign was grounded in real user needs, balancing functionality and usability to deliver a highly effective solution.</p>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <div class="cs-section reveal">
+      <div class="cs-label">Interview Results</div>
+      <h2 class="cs-h2">What the research told us</h2>
+      <div class="cs-copy">
+        <p>The interviews with ProService admins revealed critical insights into their day-to-day challenges, preferences, and aspirations for the dashboard. These findings guided the design process and helped prioritize features that would deliver the most value.</p>
+      </div>
+
+      <h3 class="cs-h3">Key Themes</h3>
+      <div class="cs-copy">
+        <p><strong>Frustration with Navigation:</strong> Admins consistently highlighted difficulties with navigating the existing dashboard. Common tasks, such as accessing employee data or generating reports, required excessive clicks and time, leading to frustration and inefficiency.</p>
+        <p><strong>Demand for Centralized Data:</strong> Many admins expressed the need for a more centralized view of critical information. Key metrics and insights were often buried under multiple layers, making it challenging to retrieve actionable data quickly.</p>
+        <p><strong>Customization as a Priority:</strong> The lack of flexibility in the existing interface was a recurring complaint. Admins wanted the ability to personalize their dashboards to focus on the tools and data most relevant to their roles.</p>
+        <p><strong>Error Handling Gaps:</strong> Frequent errors in data input and system processes were a significant pain point. Admins noted that these issues were compounded by insufficient feedback mechanisms, leaving them without clear solutions.</p>
+        <p><strong>Varying Use Patterns:</strong> Usage frequency varied widely among admins. Power users relied on the dashboard for daily operations, while others accessed it weekly or for specific tasks. This diversity underscored the need for a design that supported both intensive and occasional use.</p>
+      </div>
+
+      <h3 class="cs-h3">Actionable Insights</h3>
+      <div class="cs-copy">
+        <p>These findings informed the development of a user-centered dashboard with key improvements, including:</p>
+      </div>
+      <ul class="cs-bullets">
+        <li>A streamlined navigation structure to reduce clicks and save time</li>
+        <li>Centralized access to critical data and KPIs to enhance usability</li>
+        <li>Customization features to allow users to tailor the dashboard to their needs</li>
+        <li>Improved error feedback mechanisms to build trust and efficiency</li>
+      </ul>
+      <div class="cs-copy">
+        <p>The interview results provided a clear blueprint for the redesign, ensuring the final product addressed the most pressing user needs while delivering measurable value to ProService's business objectives.</p>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- ══ WIREFRAMES ══ -->
+    <div class="cs-section reveal">
+      <div class="cs-label">Wireframes</div>
+      <h2 class="cs-h2">Translating research into structure</h2>
+
+      <!-- IMAGE 3: Tall wireframe detail - appears at start of Wireframes section -->
+      <div class="cs-img-contained">
+        <div class="cs-img">
+          <img src="https://framerusercontent.com/images/Iu2j3MHZWXT24ZvETFzWU03gheg.jpg" alt="ProService wireframe detail">
+          <div class="cs-img-cap">Wireframe detail showing component hierarchy and layout logic</div>
+        </div>
+      </div>
+
+      <div class="cs-copy">
+        <p>This wireframe represents the proposed redesign of the ProService Admin Dashboard, focused on enhancing usability, improving data accessibility, and aligning with user needs and business objectives. Below are the key sections and their purposes:</p>
+      </div>
+
+      <h3 class="cs-h3">1. Header Navigation</h3>
+      <div class="cs-copy">
+        <p>The header provides quick access to essential navigation elements, including: Company Selection Dropdown enabling admins to toggle between different client companies; Key Links for direct access to Time &amp; Attendance and the BackOffice portal; and User Profile displaying the user's initials with a dropdown for settings or logout options.</p>
+      </div>
+
+      <h3 class="cs-h3">2. Quick Access Panels</h3>
+      <div class="cs-copy">
+        <p>Top Pages displays frequently accessed pages such as Time Sheet Entry, Employee Details, and Payroll Summary, prioritizing high-usage features and reducing time spent searching. Recommended Pages provides contextually relevant suggestions like the Approval Dashboard and Employee Master Report based on user activity, streamlining workflows.</p>
+      </div>
+
+      <h3 class="cs-h3">3. Data Visualizations and Insights</h3>
+      <div class="cs-copy">
+        <p>This section features interactive, data-driven widgets designed to surface actionable insights: Billed Invoices Chart visualizing invoice trends over time; Employee Count Breakdown as a pie chart highlighting employee categories; Employee Turnover Percentage displaying trends in turnover rates; Supervisors to Workers Ratio for a quick view of workforce structure; Total PTO Bank Liability tracking PTO balances by department; and Total Annualized Salary as a line graph illustrating salary trends over time.</p>
+      </div>
+
+      <h3 class="cs-h3">4. Feedback Section</h3>
+      <div class="cs-copy">
+        <p>At the bottom of the page, a feedback prompt invites users to share their thoughts on the dashboard, reinforcing a commitment to iterative improvement based on user input.</p>
+      </div>
+
+      <h3 class="cs-h3">5. Footer Links</h3>
+      <div class="cs-copy">
+        <p>Organized links to company resources, product documentation, and support ensure users can quickly find the help they need without leaving the dashboard.</p>
+      </div>
+
+      <h3 class="cs-h3">Design Rationale</h3>
+      <div class="cs-copy">
+        <p>This wireframe balances data-driven decision-making with user-friendly navigation, ensuring that admins can complete tasks efficiently while gaining valuable insights. By incorporating visualizations, customizable components, and quick access panels, the design addresses the diverse needs of both power users and occasional users. These elements enhance productivity, improve user satisfaction, and support ProService's strategic business objectives of increasing customer engagement, adding value through actionable insights, and driving market adoption.</p>
+        <p>The design ensures that user needs are met while aligning with ProService's goals of improving operational efficiency and strengthening its position as a leader in HR solutions.</p>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- ══ PROSERVICE BRAND ══ -->
+    <div class="cs-section reveal">
+      <div class="cs-label">ProService Brand</div>
+      <h2 class="cs-h2">Design that speaks the brand's language</h2>
+
+      <!-- IMAGE 4: Brand/design wide - appears at start of ProService Brand section -->
+      <div class="cs-img">
+        <img src="https://framerusercontent.com/images/WjeS8z8HYj4IMtI07FQOMJ0LfUw.jpg" alt="ProService brand and design language">
+        <div class="cs-img-cap">ProService brand color palette, typography, and visual design language</div>
+      </div>
+
+      <div class="cs-copy">
+        <p>To ensure consistency and alignment with ProService's visual identity, the redesigned Admin Dashboard was carefully crafted to reflect the brand's established guidelines, including its primary, secondary, and accent color palettes.</p>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- ══ DESIGNS ══ -->
+    <div class="cs-section reveal">
+      <div class="cs-label">Designs</div>
+      <h2 class="cs-h2">The final admin portal</h2>
+      <div class="cs-copy">
+        <p>The final design of the ProService Admin Dashboard successfully bridges functionality and aesthetics, delivering a user-centered interface that directly aligns with ProService's strategic goals of improving efficiency, increasing customer satisfaction, and driving market adoption.</p>
+      </div>
+
+      <!-- IMAGE 5: Figma file tall - appears at start of Designs section -->
+      <!-- This shows Auto Layout, component structure, and dev-ready file organization -->
+      <div class="cs-img-contained">
+        <div class="cs-img">
+          <img src="https://framerusercontent.com/images/10nJzczff4FETsUstJFVwMX7sk.jpg" alt="Figma file structure showing Auto Layout and component organization for development handoff">
+          <div class="cs-img-cap">Figma file organized with Auto Layout throughout, component library structured for dev handoff</div>
+        </div>
+      </div>
+
+      <h3 class="cs-h3">How the Design Solves Real Problems</h3>
+      <div class="cs-copy">
+        <p><strong>Streamlined User Experience:</strong> Improved navigation and visual hierarchy reduce task completion times, directly addressing user pain points identified during research.</p>
+        <p><strong>Enhanced Data Accessibility:</strong> Key metrics and insights are surfaced through intuitive visualizations, enabling faster, data-driven decision-making.</p>
+        <p><strong>Customization for Diverse Users:</strong> The ability to tailor dashboards for individual roles ensures the interface meets the needs of both power users and occasional users, improving adoption and satisfaction.</p>
+      </div>
+
+      <h3 class="cs-h3">Strategic Alignment</h3>
+      <div class="cs-copy">
+        <p>The design reflects ProService's brand identity through consistent use of colors, typography, and visual patterns, enhancing credibility and reinforcing trust. It also integrates with the company's broader business objectives by prioritizing usability for HR administrators, a key stakeholder group driving customer loyalty and retention.</p>
+      </div>
+
+      <h3 class="cs-h3">Impact</h3>
+      <ul class="cs-bullets">
+        <li>Simplified workflows for key HR tasks, increasing operational efficiency</li>
+        <li>Improved user satisfaction and engagement, contributing to higher Net Promoter Scores (NPS)</li>
+        <li>Positioned ProService as a competitive market leader with a modernized, user-friendly interface</li>
+      </ul>
+      <div class="cs-copy" style="margin-top: 12px;">
+        <p>By combining user research insights with thoughtful design execution, the completed Admin Dashboard achieves measurable improvements for both users and the business.</p>
+      </div>
+
+      <!-- IMAGE 7: PS Admin Portal final design -->
+      <div class="cs-img">
+        <img src="https://framerusercontent.com/images/id9B0CVZzx4UNLuKf00B2eyLP3g.png" alt="PS Admin Portal final design">
+        <div class="cs-img-cap">PS Admin Portal, final production design</div>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- ══ OUTCOME ══ -->
+    <div class="cs-section reveal">
+      <div class="cs-label">Outcome</div>
+      <h2 class="cs-h2">Measurable impact on users and the business</h2>
+      <div class="cs-copy">
+        <p>The redesigned ProService Admin Dashboard delivered measurable improvements in both user satisfaction and business alignment, demonstrating the impact of a user-centered approach to solving complex design challenges.</p>
+      </div>
+
+      <h3 class="cs-h3">Key Results</h3>
+      <div class="cs-findings">
+        <div class="cs-finding">
+          <span class="cs-finding-num">01</span>
+          <div>
+            <div class="cs-finding-title">Streamlined Workflows</div>
+            <div class="cs-finding-body">Navigation improvements reduced task completion time for HR admins, allowing them to focus on high-value activities.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">02</span>
+          <div>
+            <div class="cs-finding-title">Increased Data Accessibility</div>
+            <div class="cs-finding-body">Key insights and metrics were surfaced through intuitive visualizations, empowering admins to make faster, data-driven decisions.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">03</span>
+          <div>
+            <div class="cs-finding-title">Customizable User Experience</div>
+            <div class="cs-finding-body">Tailored dashboard options enhanced usability for diverse user roles, accommodating both power users and occasional users.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">04</span>
+          <div>
+            <div class="cs-finding-title">Brand Cohesion</div>
+            <div class="cs-finding-body">Consistent integration of ProService's visual identity reinforced credibility and trust across the platform.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="cs-h3">Business Impact</h3>
+      <div class="cs-copy">
+        <p>The redesign aligned with ProService's strategic objectives by driving customer satisfaction and increasing engagement with the platform. Early feedback from internal stakeholders and admins indicated a significant improvement in user experience, positioning ProService as a leader in HR solutions.</p>
+      </div>
+
+      <!-- IMAGES 8, 9, 10: Brand squares 3-column grid - at end of Outcome -->
+      <div class="cs-img-3col">
+        <div class="cs-img">
+          <img src="https://framerusercontent.com/images/pL4HjPorXIu5zFIHYmjAvU3aU.jpg" alt="ProService brand detail">
+        </div>
+        <div class="cs-img">
+          <img src="https://framerusercontent.com/images/2FOzG50YGWWXKM9TF0PEVWBrAl4.jpg" alt="ProService brand detail">
+        </div>
+        <div class="cs-img">
+          <img src="https://framerusercontent.com/images/0pKETlmqImCIfUZzsMOUOcbRlY.jpg" alt="ProService brand detail">
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+  </div>
+
+  <!-- MORE PROJECTS -->
+  <section class="cs-more">
+    <div class="cs-wrap">
+      <p class="cs-more-label">More Projects</p>
+      <div class="cs-more-grid">
+        <a href="ai-process.html" class="more-card">
+          <div class="more-tag">AI Process</div>
+          <div class="more-title">Researching the Modern AI Design Process</div>
+          <div class="more-desc">14 phases to 6 zones.</div>
+        </a>
+        <a href="https://www.uxkitt.com/att-digital-guide" target="_blank" class="more-card">
+          <div class="more-tag">Enterprise</div>
+          <div class="more-title">Agent Onboarding: The AT&T Digital Guide</div>
+          <div class="more-desc">Scalable onboarding across all locations.</div>
+        </a>
+        <a href="https://www.uxkitt.com/directv" target="_blank" class="more-card">
+          <div class="more-tag">Mobile</div>
+          <div class="more-title">Elevating the DirecTV Mobile Apps</div>
+          <div class="more-desc">App Store from 1.3 to 4.6.</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-copy">2026 Kitt Tucker</span>
+    <ul class="footer-links">
+      <li><a href="mailto:kitt@uxkitt.com">Contact</a></li>
+      <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
