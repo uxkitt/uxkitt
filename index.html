@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitt Tucker | Systems-Driven Design. Human-Centered Results.</title>
+<meta name="description" content="15 years in UX & Product Design. Mobile, enterprise, TV, and AI-native process. Based in Denver, CO.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ─── HOMEPAGE SPECIFIC ─── */
+
+/* HERO */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 64px);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(120,80,200,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 30% 60%, rgba(40,160,180,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(212,151,59,0.08) 0%, transparent 50%),
+    var(--bg);
+  animation: heroShift 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroShift {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  50%  { filter: hue-rotate(15deg) brightness(1.05); }
+  100% { filter: hue-rotate(-10deg) brightness(0.98); }
+}
+
+.hero-bg-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.hero-meta {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out) 0.4s forwards;
+}
+
+.hero-headline {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 7vw, 88px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  color: var(--text-1);
+  max-width: 900px;
+  margin-bottom: clamp(20px, 2.5vw, 32px);
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 0.6s forwards;
+}
+
+.hero-sub {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 600px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* CLIENTS */
+.clients {
+  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px);
+  border-top: 1px solid var(--border);
+}
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: clamp(16px, 2.5vw, 32px) clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+
+.client-name {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.1vw, 12px);
+  letter-spacing: 0.1em;
+  color: var(--text-4);
+  font-weight: 500;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.client-name:hover { color: var(--text-2); }
+
+/* PROJECTS */
+.projects {
+  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px);
+}
+
+.projects-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.projects-title {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  color: var(--text-1);
+}
+
+.projects-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr));
+  gap: clamp(16px, 2vw, 20px);
+}
+
+/* PROJECT CARD */
+.project-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.4s ease, transform 0.4s var(--ease-out);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.project-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.project-card.featured {
+  grid-column: 1 / -1;
+}
+
+.card-visual {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-card.featured .card-visual {
+  aspect-ratio: 21/9;
+}
+
+.card-gradient {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s var(--ease-out);
+}
+.project-card:hover .card-gradient {
+  transform: scale(1.04);
+}
+
+/* Unique gradients per project */
+.grad-ai       { background: linear-gradient(135deg, #0D0A1A 0%, #1A0D2E 30%, #2D1B5E 60%, #1A2A4A 100%); }
+.grad-proservice { background: linear-gradient(135deg, #0A1220 0%, #0D1E35 40%, #1A3550 70%, #102030 100%); }
+.grad-compass  { background: linear-gradient(135deg, #0D1520 0%, #101C2E 40%, #0A2240 70%, #08182E 100%); }
+.grad-attguide { background: linear-gradient(135deg, #150D0A 0%, #2A1510 40%, #3D2010 70%, #201208 100%); }
+.grad-directv  { background: linear-gradient(135deg, #0A0D15 0%, #0D1225 40%, #101A35 70%, #080D20 100%); }
+.grad-uverse   { background: linear-gradient(135deg, #0D1515 0%, #0F2020 40%, #122828 70%, #0A1818 100%); }
+.grad-atthome  { background: linear-gradient(135deg, #150D0A 0%, #251510 40%, #351C10 70%, #1A0D08 100%); }
+.grad-life     { background: linear-gradient(135deg, #0A150D 0%, #0D2015 40%, #102815 70%, #081508 100%); }
+.grad-one      { background: linear-gradient(135deg, #150A15 0%, #200D20 40%, #2E1030 70%, #180A18 100%); }
+.grad-landlab  { background: linear-gradient(135deg, #0A1208 0%, #0F1E0D 40%, #141F0A 70%, #0A1508 100%); }
+.grad-eng      { background: linear-gradient(135deg, #151210 0%, #201E14 40%, #282210 70%, #181408 100%); }
+
+/* card overlay graphic */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon {
+  font-size: clamp(28px, 4vw, 48px);
+  opacity: 0.18;
+  filter: blur(1px);
+  transition: opacity 0.4s, transform 0.5s var(--ease-out);
+}
+.project-card:hover .card-icon {
+  opacity: 0.3;
+  transform: scale(1.1);
+}
+
+/* AI case study gets the zones visual as card art */
+.card-zones {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 28px;
+  width: 100%;
+}
+.card-zone-bar {
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  transition: opacity 0.3s, transform 0.4s var(--ease-out);
+}
+.project-card:hover .card-zone-bar { opacity: 1; }
+.project-card:hover .card-zone-bar:nth-child(1) { transform: translateX(0px); }
+.project-card:hover .card-zone-bar:nth-child(2) { transform: translateX(8px); }
+.project-card:hover .card-zone-bar:nth-child(3) { transform: translateX(14px); }
+.project-card:hover .card-zone-bar:nth-child(4) { transform: translateX(10px); }
+.project-card:hover .card-zone-bar:nth-child(5) { transform: translateX(6px); }
+.project-card:hover .card-zone-bar:nth-child(6) { transform: translateX(2px); }
+
+.czb-1 { background:rgba(100,80,200,0.2); border-color:rgba(140,110,240,0.5); color:#B8A0F0; }
+.czb-2 { background:rgba(30,130,120,0.2); border-color:rgba(60,180,165,0.5); color:#5ECFBE; }
+.czb-3 { background:rgba(160,80,30,0.2); border-color:rgba(210,120,50,0.5); color:#E09050; }
+.czb-4 { background:rgba(30,60,140,0.2); border-color:rgba(60,100,210,0.5); color:#6090E0; }
+.czb-5 { background:rgba(30,100,50,0.2); border-color:rgba(60,160,90,0.5); color:#60C880; }
+.czb-6 { background:rgba(130,40,100,0.2); border-color:rgba(200,80,160,0.5); color:#D870C0; }
+
+/* CARD BODY */
+.card-body {
+  padding: clamp(20px, 2.5vw, 28px);
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.card-tag.tag-new {
+  color: var(--gold);
+  background: var(--gold-dim);
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(212,151,59,0.25);
+}
+
+.card-arrow {
+  font-size: 16px;
+  color: var(--text-4);
+  transition: color 0.2s, transform 0.3s var(--ease-spring);
+}
+.project-card:hover .card-arrow {
+  color: var(--text-1);
+  transform: translate(3px, -3px);
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 400;
+  color: var(--text-1);
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.card-desc {
+  font-size: clamp(13px, 1.3vw, 14px);
+  color: var(--text-2);
+  line-height: 1.6;
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">[UX Kitt]™</a>
+  <ul class="nav-links">
+    <li><a href="mailto:kitt@uxkitt.com">Contact <span class="nav-arrow">↗</span></a></li>
+    <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn <span class="nav-arrow">↗</span></a></li>
+    <li><a href="#" style="pointer-events:none; color:var(--text-3)">Denver, CO ⛰</a></li>
+  </ul>
+</nav>
+
+<main class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-bg-noise"></div>
+    <div class="hero-meta">Selected work · 2011 – Present Day</div>
+    <h1 class="hero-headline">Systems-Driven Design.<br>Human-Centered Results.</h1>
+    <p class="hero-sub">With over 15 years in UX &amp; Product Design, from complex enterprise systems to consumer apps used by tens of millions, I specialize in mobile, tablet, desktop, and TV 0→1 products at scale. My work operates at the intersection of AI, systems thinking, sharp craft, and measurable outcomes.</p>
+  </section>
+
+  <!-- CLIENTS -->
+  <section class="clients reveal">
+    <p class="section-label">Selected clients &amp; collaborators</p>
+    <div class="clients-grid">
+      <span class="client-name">Microsoft</span>
+      <span class="client-name">AT&amp;T</span>
+      <span class="client-name">Apple</span>
+      <span class="client-name">DirecTV</span>
+      <span class="client-name">Critical Mass</span>
+      <span class="client-name">Cox</span>
+      <span class="client-name">BellSouth</span>
+      <span class="client-name">Interbrand</span>
+      <span class="client-name">BBDO</span>
+      <span class="client-name">Method</span>
+      <span class="client-name">Cingular</span>
+      <span class="client-name">Thrive</span>
+      <span class="client-name">The Oscars</span>
+      <span class="client-name">U-verse</span>
+      <span class="client-name">ManMade Music</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects">
+    <div class="projects-header reveal">
+      <h2 class="projects-title">Work</h2>
+      <span class="projects-count">11 projects</span>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- AI PROCESS — FEATURED -->
+      <a href="ai-process.html" class="project-card featured reveal">
+        <div class="card-visual">
+          <div class="card-gradient grad-ai">
+            <div class="card-overlay">
+              <div class="card-zones">
+                <div class="card-zone-bar czb-1">01 · Frame</div>
+                <div class="card-zone-bar czb-2" style="margin-left:20px">02 · Explore</div>
+                <div class="card-zone-bar czb-3" style="margin-left:40px">03 · Build &amp; Test</div>
+                <div class="card-zone-bar czb-4" style="margin-left:32px">04 · Systematize</div>
+                <div class="card-zone-bar czb-5" style="margin-left:22px">05 · Ship</div>
+                <div class="card-zone-bar czb-6" style="margin-left:10px">06 · Document</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag tag-new">AI Process · New</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">Researching the Modern AI Design Process</h3>
+          <p class="card-desc">Before starting a major portfolio project, I spent weeks validating how elite teams at Stripe, Linear, Ramp, and Vercel actually work. What I found reshaped the entire methodology — from 14 sequential phases to 6 overlapping zones.</p>
+        </div>
+      </a>
+
+      <!-- PROSERVICE -->
+      <a href="proservice.html" class="project-card reveal reveal-delay-1">
+        <div class="card-visual">
+          <div class="card-gradient grad-proservice">
+            <div class="card-overlay"><div class="card-icon">📊</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Enterprise</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">ProService Admin Dashboard</h3>
+          <p class="card-desc">Modernizing the HR experience for administrators. UX strategy, research with internal teams and end users, and a streamlined interface built for scale.</p>
+        </div>
+      </a>
+
+      <!-- AT&T COMPASS -->
+      <a href="https://www.uxkitt.com/compass" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-visual">
+          <div class="card-gradient grad-compass">
+            <div class="card-overlay"><div class="card-icon">🧭</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Enterprise</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">AT&amp;T Compass</h3>
+          <p class="card-desc">Enterprise app for AT&amp;T Field Managers. Built the design system, Storybook integration, and quality frameworks. NPS more than doubled, support tickets down 25%.</p>
+        </div>
+      </a>
+
+      <!-- DIRECTV -->
+      <a href="https://www.uxkitt.com/directv" target="_blank" class="project-card reveal reveal-delay-1">
+        <div class="card-visual">
+          <div class="card-gradient grad-directv">
+            <div class="card-overlay"><div class="card-icon">📡</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Mobile</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">DirecTV Mobile Apps</h3>
+          <p class="card-desc">Led full redesign following the AT&amp;T merger. App Store rating from 1.3 to 4.6 in under a year through improved reliability, accessibility, and core flows.</p>
+        </div>
+      </a>
+
+      <!-- LIFE -->
+      <a href="https://www.uxkitt.com/life" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-visual">
+          <div class="card-gradient grad-life">
+            <div class="card-overlay"><div class="card-icon">💚</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Mobile</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">Life</h3>
+          <p class="card-desc">First mobile app to let users create and track custom health metrics. 22 million downloads, 500k DAU.</p>
+        </div>
+      </a>
+
+      <!-- ONE -->
+      <a href="https://www.uxkitt.com/one" target="_blank" class="project-card reveal reveal-delay-1">
+        <div class="card-visual">
+          <div class="card-gradient grad-one">
+            <div class="card-overlay"><div class="card-icon">⭕</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Mobile</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">One</h3>
+          <p class="card-desc">Evolution of Life. Unified cycle, fertility, pregnancy, symptoms, mood, nutrition, and appointments into one clear, responsive experience.</p>
+        </div>
+      </a>
+
+      <!-- U-VERSE -->
+      <a href="https://www.uxkitt.com/uverse-next-gen" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-visual">
+          <div class="card-gradient grad-uverse">
+            <div class="card-overlay"><div class="card-icon">📺</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">TV</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">U-verse Next Gen TV</h3>
+          <p class="card-desc">Strategic redesign across set-top box, mobile, and IPTV. Partnered with Frog. FCC-driven redesign that modernized the interface and unified the ecosystem.</p>
+        </div>
+      </a>
+
+      <!-- AT&T HOMEPAGE -->
+      <a href="https://www.uxkitt.com/att-homepage" target="_blank" class="project-card reveal reveal-delay-1">
+        <div class="card-visual">
+          <div class="card-gradient grad-atthome">
+            <div class="card-overlay"><div class="card-icon">🌐</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Web</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">AT&amp;T Homepage</h3>
+          <p class="card-desc">End-to-end redesign of AT&amp;T.com. Highest-grossing month in site history. Significant gains in task success, cart abandonment, and CSAT.</p>
+        </div>
+      </a>
+
+      <!-- AT&T DIGITAL GUIDE -->
+      <a href="https://www.uxkitt.com/att-digital-guide" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-visual">
+          <div class="card-gradient grad-attguide">
+            <div class="card-overlay"><div class="card-icon">📱</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Mobile</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">AT&amp;T Digital Guide</h3>
+          <p class="card-desc">Mobile onboarding for new call center agents. Structured step-by-step navigation that simplified complex workstation setup and scaled across the organization.</p>
+        </div>
+      </a>
+
+      <!-- LANDLAB -->
+      <a href="https://www.uxkitt.com/landlab" target="_blank" class="project-card reveal reveal-delay-1">
+        <div class="card-visual">
+          <div class="card-gradient grad-landlab">
+            <div class="card-overlay"><div class="card-icon">🌿</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Web</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">LandLab</h3>
+          <p class="card-desc">Tech-enabled landscaping company I co-founded. Led digital strategy from branding through automated workflows. Fully booked in six months, 5-star Google rating.</p>
+        </div>
+      </a>
+
+      <!-- ENG -->
+      <a href="https://www.uxkitt.com/eng" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-visual">
+          <div class="card-gradient grad-eng">
+            <div class="card-overlay"><div class="card-icon">🔤</div></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Mobile</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <h3 class="card-title">ENG</h3>
+          <p class="card-desc">Mobile-first language learning app. Game-based mechanics for mastering the top 1,000 English words. Built around cognitive ease, daily habit formation, and measurable progress.</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span class="footer-copy">© 2026 Kitt Tucker</span>
+  <ul class="footer-links">
+    <li><a href="mailto:kitt@uxkitt.com">Contact ↗</a></li>
+    <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+  </ul>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProService Admin Dashboard Redesign | Kitt Tucker</title>
+<meta name="description" content="Modernizing the HR experience for administrators at ProService. UX strategy, research, and a streamlined dashboard built for scale.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ─── CASE STUDY SHARED ─── */
+.cs-hero {
+  padding: clamp(64px, 8vw, 100px) clamp(24px, 5vw, 64px) clamp(48px, 6vw, 72px);
+  border-bottom: 1px solid var(--border);
+}
+
+.cs-meta-row {
+  display: flex;
+  gap: clamp(24px, 4vw, 48px);
+  margin-bottom: clamp(32px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+
+.cs-meta-item {}
+
+.cs-meta-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.cs-meta-value {
+  font-size: 14px;
+  color: var(--text-2);
+  font-weight: 400;
+}
+
+.cs-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 5.5vw, 64px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--text-1);
+  margin-bottom: clamp(16px, 2vw, 24px);
+  max-width: 900px;
+}
+
+.cs-intro {
+  font-size: clamp(15px, 1.7vw, 18px);
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 700px;
+  font-weight: 300;
+}
+
+/* HERO VISUAL */
+.cs-hero-visual {
+  margin: clamp(32px, 4vw, 56px) clamp(24px, 5vw, 64px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 16/7;
+  background: linear-gradient(135deg, #0A1220 0%, #0D1E35 40%, #1A3550 70%, #102030 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-hero-visual-inner {
+  text-align: center;
+}
+
+.cs-hero-visual-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 8px;
+}
+
+.cs-hero-visual-note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.12);
+  font-weight: 300;
+}
+
+/* CONTENT */
+.cs-content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px);
+}
+
+.cs-section {
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+
+.cs-section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 400;
+  color: var(--text-1);
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(14px, 1.8vw, 20px);
+}
+
+.cs-body {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: var(--text-2);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+.cs-body p + p { margin-top: 1em; }
+
+.cs-body strong {
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+/* STATS ROW */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: clamp(28px, 3.5vw, 40px) 0;
+}
+
+.cs-stat {
+  background: var(--surface);
+  padding: clamp(20px, 2.5vw, 28px) clamp(20px, 2.5vw, 28px);
+}
+
+.cs-stat-value {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 400;
+  color: var(--text-1);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.cs-stat-label {
+  font-size: 13px;
+  color: var(--text-3);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* QUOTE */
+.cs-quote {
+  border-left: 2px solid var(--gold);
+  padding: clamp(16px, 2vw, 24px) clamp(20px, 3vw, 32px);
+  margin: clamp(28px, 3.5vw, 40px) 0;
+  background: var(--gold-glow);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.cs-quote-text {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-1);
+  line-height: 1.5;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.cs-quote-attr {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* FINDING LIST */
+.cs-findings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: clamp(20px, 2.5vw, 28px) 0;
+}
+
+.cs-finding {
+  display: flex;
+  gap: 16px;
+  padding: clamp(16px, 2vw, 20px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  align-items: flex-start;
+}
+
+.cs-finding-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-4);
+  font-weight: 500;
+  padding-top: 3px;
+  min-width: 20px;
+}
+
+.cs-finding-content {}
+
+.cs-finding-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+
+.cs-finding-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* MORE PROJECTS */
+.more-projects {
+  padding: clamp(48px, 6vw, 72px) clamp(24px, 5vw, 64px);
+  border-top: 1px solid var(--border);
+}
+
+.more-projects-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+
+.more-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+}
+
+.more-card {
+  display: block;
+  padding: clamp(18px, 2.5vw, 24px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.3s, transform 0.3s var(--ease-out);
+}
+.more-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+}
+.more-card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+.more-card-title {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.8vw, 19px);
+  color: var(--text-1);
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.more-card-desc {
+  font-size: 13px;
+  color: var(--text-3);
+  line-height: 1.55;
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-back">← All Work</a>
+  <span class="nav-tag">Enterprise · 2024</span>
+</nav>
+
+<main class="page">
+
+  <!-- HERO -->
+  <header class="cs-hero">
+    <div class="cs-meta-row reveal">
+      <div class="cs-meta-item">
+        <div class="cs-meta-label">Year</div>
+        <div class="cs-meta-value">2024</div>
+      </div>
+      <div class="cs-meta-item">
+        <div class="cs-meta-label">My Role</div>
+        <div class="cs-meta-value">Principal Product Designer</div>
+      </div>
+      <div class="cs-meta-item">
+        <div class="cs-meta-label">Type</div>
+        <div class="cs-meta-value">Enterprise SaaS · HR Platform</div>
+      </div>
+    </div>
+
+    <h1 class="cs-headline reveal reveal-delay-1">ProService North Star:<br>The Admin Dashboard Redesign</h1>
+    <p class="cs-intro reveal reveal-delay-2">ProService's Admin Dashboard redesign was a pivotal project aimed at modernizing the HR experience for administrators while aligning with key business objectives. I led the UX strategy, conducted research with internal teams and end users, and designed a streamlined interface focused on clarity, navigation, and essential functionality.</p>
+  </header>
+
+  <!-- HERO VISUAL -->
+  <div class="cs-hero-visual reveal">
+    <div class="cs-hero-visual-inner">
+      <div class="cs-hero-visual-label">Dashboard Mockup</div>
+      <div class="cs-hero-visual-note">Screenshot placeholder — swap with actual Figma export</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="cs-content">
+
+    <!-- STATS -->
+    <div class="cs-stats reveal">
+      <div class="cs-stat">
+        <div class="cs-stat-value">↑ NPS</div>
+        <div class="cs-stat-label">Improved net promoter scores post-launch</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-value">10</div>
+        <div class="cs-stat-label">HR admins interviewed across diverse roles</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-value">0→1</div>
+        <div class="cs-stat-label">Data visualization layer built from scratch</div>
+      </div>
+    </div>
+
+    <!-- CHALLENGE -->
+    <div class="cs-section reveal">
+      <div class="eyebrow">Challenge</div>
+      <h2 class="cs-section-title">An outdated dashboard that couldn't keep up</h2>
+      <div class="cs-body">
+        <p>The existing Admin Dashboard at ProService was outdated, unintuitive, and failed to meet the evolving needs of HR administrators. Users expressed frustration with poor navigation, limited functionality, and a lack of actionable insights — hindering their ability to manage critical HR tasks efficiently.</p>
+        <p>These shortcomings not only impacted user satisfaction but also limited ProService's ability to differentiate in the market and achieve strategic goals for growth and adoption.</p>
+      </div>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="cs-section reveal">
+      <div class="eyebrow">UX Research</div>
+      <h2 class="cs-section-title">Grounding every decision in real user data</h2>
+      <div class="cs-body">
+        <p>I began with a heuristic evaluation of the existing dashboard to identify usability issues, followed by stakeholder interviews with Subject Matter Experts, Sales, and Marketing to ensure alignment with business goals. User interviews with 10 HR admins across various roles provided the critical insights that shaped the design.</p>
+        <p>Data analysis of support tickets, NPS summaries, and Salesforce data complemented qualitative research, surfacing recurring pain points at scale.</p>
+      </div>
+    </div>
+
+    <!-- KEY FINDINGS -->
+    <div class="cs-section reveal">
+      <div class="eyebrow">Key Findings</div>
+      <h2 class="cs-section-title">Five patterns that shaped the design</h2>
+      <div class="cs-findings">
+        <div class="cs-finding">
+          <span class="cs-finding-num">01</span>
+          <div class="cs-finding-content">
+            <div class="cs-finding-title">Navigation inefficiency</div>
+            <div class="cs-finding-desc">Common tasks required excessive clicks. Admins spent more time finding tools than using them.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">02</span>
+          <div class="cs-finding-content">
+            <div class="cs-finding-title">Buried data</div>
+            <div class="cs-finding-desc">Critical metrics and reports were hidden under multiple layers, slowing data-driven decisions.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">03</span>
+          <div class="cs-finding-content">
+            <div class="cs-finding-title">No customization</div>
+            <div class="cs-finding-desc">The fixed interface couldn't adapt to different admin roles — one size fit none.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">04</span>
+          <div class="cs-finding-content">
+            <div class="cs-finding-title">Poor error handling</div>
+            <div class="cs-finding-desc">Frequent errors with no clear feedback left admins without resolution paths.</div>
+          </div>
+        </div>
+        <div class="cs-finding">
+          <span class="cs-finding-num">05</span>
+          <div class="cs-finding-content">
+            <div class="cs-finding-title">Varied usage patterns</div>
+            <div class="cs-finding-desc">Some admins used the dashboard daily; others monthly for specific tasks. Both groups needed to be served.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLUTION -->
+    <div class="cs-section reveal">
+      <div class="eyebrow">Solution</div>
+      <h2 class="cs-section-title">A scalable foundation, not a one-time fix</h2>
+      <div class="cs-body">
+        <p>I led end-to-end design for the redesign, managing a designer to execute the visual system. The focus was on a modern, self-service experience that could scale without increasing headcount while maintaining a professional first impression.</p>
+        <p>Key design decisions: <strong>streamlined navigation</strong> to reduce clicks, <strong>Favorites functionality</strong> for personalization, <strong>Employee Management tools</strong> tailored to admin feedback, and <strong>data visualizations</strong> — charts and graphs — to surface actionable insights at a glance.</p>
+        <p>The Figma architecture used scalable component patterns, ensuring future teams could extend rather than rebuild.</p>
+      </div>
+    </div>
+
+    <!-- OUTCOME -->
+    <div class="cs-section reveal">
+      <div class="eyebrow">Outcome</div>
+      <h2 class="cs-section-title">Measurable improvement, positioned for growth</h2>
+      <div class="cs-body">
+        <p>The redesign delivered a modern, streamlined interface that prioritized usability and data-driven decision-making. Early feedback from internal stakeholders and admins indicated a significant improvement in user experience.</p>
+        <p>Simplified workflows reduced task completion time for key HR tasks. Improved data accessibility enabled faster, data-driven decisions. Tailored customization options improved adoption across both power users and occasional users. Consistent ProService brand integration reinforced credibility across the platform.</p>
+      </div>
+
+      <div class="cs-quote">
+        <p class="cs-quote-text">"By treating the business like a product, we built a repeatable model that scaled trust, not just transactions."</p>
+        <span class="cs-quote-attr">Design philosophy behind the ProService engagement</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+  </div>
+
+  <!-- MORE PROJECTS -->
+  <section class="more-projects reveal">
+    <p class="more-projects-label">More Projects</p>
+    <div class="more-grid">
+      <a href="ai-process.html" class="more-card">
+        <div class="more-card-tag">AI Process · New</div>
+        <div class="more-card-title">Researching the Modern AI Design Process</div>
+        <div class="more-card-desc">14 phases → 6 zones. What elite teams actually do.</div>
+      </a>
+      <a href="https://www.uxkitt.com/compass" target="_blank" class="more-card">
+        <div class="more-card-tag">Enterprise</div>
+        <div class="more-card-title">AT&amp;T Compass</div>
+        <div class="more-card-desc">NPS doubled. Support tickets down 25%.</div>
+      </a>
+      <a href="https://www.uxkitt.com/directv" target="_blank" class="more-card">
+        <div class="more-card-tag">Mobile</div>
+        <div class="more-card-title">DirecTV Mobile Apps</div>
+        <div class="more-card-desc">App Store rating from 1.3 to 4.6.</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span class="footer-copy">© 2026 Kitt Tucker</span>
+  <ul class="footer-links">
+    <li><a href="mailto:kitt@uxkitt.com">Contact ↗</a></li>
+    <li><a href="https://www.linkedin.com/in/uxkitt" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+  </ul>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
