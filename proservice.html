@@ -18,7 +18,7 @@
 /* NAV */
 .cs-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 18px clamp(20px, 4vw, 48px);
+  padding: 18px 0;
   display: flex; align-items: center; justify-content: space-between;
   background: rgba(10,10,13,0.9);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -27,6 +27,16 @@
   animation: navIn 0.6s var(--ease-out) 0.1s forwards;
 }
 @keyframes navIn { to { transform: translateY(0); opacity: 1; } }
+
+.cs-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
 
 /* HERO */
 .cs-hero {
@@ -176,8 +186,10 @@
 <body>
 
 <nav class="cs-nav">
-  <a href="index.html" class="nav-back">← All Work</a>
-  <span class="nav-tag">Enterprise, 2024</span>
+  <div class="cs-nav-inner">
+    <a href="index.html" class="nav-back">← All Work</a>
+    <span class="nav-tag">Enterprise, 2024</span>
+  </div>
 </nav>
 
 <main class="cs-page">
