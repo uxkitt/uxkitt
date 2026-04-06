@@ -52,11 +52,18 @@
   line-height: 1.75; font-weight: 300; max-width: 680px;
 }
 
-/* FULL-WIDTH IMAGE */
+/* HERO IMAGE */
+.cs-hero-img-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
 .cs-hero-img {
   overflow: hidden;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
 }
 .cs-hero-img img { width: 100%; display: block; height: auto; }
 
@@ -197,8 +204,10 @@
   </div>
 
   <!-- IMAGE 0: Hero laptop -->
-  <div class="cs-hero-img reveal">
-    <img src="https://framerusercontent.com/images/v8ycYl5bdEOd4UuO9A0LmPuR8w.jpg" alt="ProService Admin Dashboard on laptop">
+  <div class="cs-hero-img-wrap">
+    <div class="cs-hero-img reveal">
+      <img src="https://framerusercontent.com/images/v8ycYl5bdEOd4UuO9A0LmPuR8w.jpg" alt="ProService Admin Dashboard on laptop">
+    </div>
   </div>
 
   <!-- ══ CHALLENGE / SOLUTION / APPROACH / OUTCOME ══ -->
